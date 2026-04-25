@@ -166,5 +166,5 @@ To combine hook configs from multiple bundles into one `settings.json`, create a
 ## See Also
 
 - Claude Code hooks docs: https://code.claude.com/docs/en/hooks.md
-- Platform Claude skills: `../skills/`
-- Platform Claude agents: `../agents/`
+- Intelliceed AI Meta skills: `../skills/`
+- Intelliceed AI Meta agents: `../agents/`
