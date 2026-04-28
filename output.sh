@@ -114,7 +114,7 @@ PROJECT_TREE="$(generate_tree)"
 
 > **Last Updated**: ${TODAY}
 > **Status**: active
-> **Owner**: Platform Team
+> **Owner**: Intelliceed Team
 > **Repo**: ${REPO_URL}
 
 ## Engineer Role
