@@ -141,6 +141,41 @@ All components copied from `$ARCHIVE_DIR` — no extra network calls.
 
 ---
 
+## Local Development
+
+### Manual Testing (`tests/run-local.sh`)
+
+Interactive run against `dist/` for manual inspection:
+
+```bash
+bash tests/run-local.sh             # full setup
+bash tests/run-local.sh --skills    # skills only
+```
+
+`dist/` is committed with a `.gitignore` that excludes generated output (`.claude/`). `run-local.sh` initializes a standalone git repo in `dist/` on first run so `setup.sh` treats it as a project root.
+
+### Automated Tests (`tests/`)
+
+Each script runs `setup.sh` against a `mktemp -d` temp directory with pre-piped answers and asserts expected files exist:
+
+| Script | Scenario |
+|--------|----------|
+| `tests/fresh-install.sh` | First run, all defaults |
+| `tests/update-mode.sh` | Fresh install → re-run, CLAUDE.md untouched |
+| `tests/skills-only.sh` | `--skills` flag: skills installed, agents absent |
+| `tests/agents-only.sh` | `--agents` flag: agents installed, skills absent |
+| `tests/hooks-only.sh` | `--hooks` flag, all bundles: hook scripts installed |
+
+Run all tests:
+
+```bash
+for t in tests/fresh-install.sh tests/update-mode.sh tests/skills-only.sh tests/agents-only.sh tests/hooks-only.sh; do
+  bash "$t"
+done
+```
+
+---
+
 ## Open Questions
 
 - MCP setup: planned — auto-discover `mcp/integrations/*/`, skip/all/pick, merge `mcpServers` into `.claude/settings.json`
@@ -159,3 +194,4 @@ All components copied from `$ARCHIVE_DIR` — no extra network calls.
 | v14 | 2026-04-17 | Auto-discovery via find, hooks bundles structure, hooks merge fix |
 | v15 | 2026-04-17 | Spec trimmed to match implementation — removed unimplemented sections |
 | v16 | 2026-05-02 | settings.json added to scaffold with permissionMode, allowedTools, deniedTools |
+| v17 | 2026-05-02 | Local development: dist/ scratch folder + tests/ automated suite |
