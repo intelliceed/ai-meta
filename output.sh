@@ -201,7 +201,7 @@ EOF
 } > .claude/CLAUDE.md
 echo "Generated   .claude/CLAUDE.md"
 
-echo '{}' > .claude/settings.json
+cp "$ARCHIVE_DIR/settings.json" .claude/settings.json
 echo "Generated   .claude/settings.json"
 
 cat > .claude/TODO.md << 'EOF'

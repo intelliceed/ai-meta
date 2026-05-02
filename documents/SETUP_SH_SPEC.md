@@ -1,7 +1,7 @@
 # setup.sh — Specification (Intelliceed AI Meta)
 
-> **Last Updated**: 2026-04-17
-> **Status**: Spec v15
+> **Last Updated**: 2026-05-02
+> **Status**: Spec v16
 
 ## Purpose
 
@@ -83,6 +83,8 @@ Each module prompt shows a numbered menu (1/2/3) with the default marked. User p
 
 All components copied from `$ARCHIVE_DIR` — no extra network calls.
 
+**Settings** → `.claude/settings.json` (copied from `$ARCHIVE_DIR/settings.json`, first run only)
+
 **Skills** → `.claude/skills/{name}/SKILL.md` (auto-discovered from `skills/*/`)
 
 **Agents** → `.claude/agents/{name}.md` (auto-discovered from `agents/*.md`)
@@ -102,6 +104,7 @@ All components copied from `$ARCHIVE_DIR` — no extra network calls.
     ├── .gitignore              ← documents/*, !documents/.gitkeep, TODO.md
     ├── CLAUDE.md               ← project knowledge base
     ├── TODO.md                 ← session task list (gitignored)
+    ├── settings.json           ← permissionMode, allowedTools, deniedTools
     ├── documents/              ← gitignored, .gitkeep
     ├── skills/{name}/SKILL.md  ← gitkeep if none selected
     ├── agents/{name}.md        ← gitkeep if none selected
@@ -117,6 +120,7 @@ All components copied from `$ARCHIVE_DIR` — no extra network calls.
 |-----------|-----------|
 | `CLAUDE.md` | Never touched |
 | `TODO.md` | Never touched |
+| `settings.json` | Never touched (first run only) |
 | `skills/` | Selected: re-copied. Deselected: untouched. |
 | `agents/` | Selected: re-copied. Deselected: untouched. |
 | `hooks/` | Explicit selection: re-copied, deselected scripts removed. Skip or invalid input: untouched. |
@@ -154,3 +158,4 @@ All components copied from `$ARCHIVE_DIR` — no extra network calls.
 | v13 | 2026-04-17 | Modules self-contained, skip/all/pick prompts, auto-detection into output.sh |
 | v14 | 2026-04-17 | Auto-discovery via find, hooks bundles structure, hooks merge fix |
 | v15 | 2026-04-17 | Spec trimmed to match implementation — removed unimplemented sections |
+| v16 | 2026-05-02 | settings.json added to scaffold with permissionMode, allowedTools, deniedTools |
