@@ -63,7 +63,7 @@ else
     for bundle in "${HOOKS[@]}"; do
       while IFS= read -r script; do
         [[ -z "$script" ]] && continue
-        if [[ ! " ${SCRIPTS_TO_COPY[*]} " =~ " ${script} " ]]; then
+        if [[ ! " ${SCRIPTS_TO_COPY[*]:-} " =~ " ${script} " ]]; then
           SCRIPTS_TO_COPY+=("$script")
         fi
       done < "$ARCHIVE_DIR/hooks/bundles/$bundle/scripts.txt"

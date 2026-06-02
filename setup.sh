@@ -88,6 +88,49 @@ echo ""
 [[ "$RUN_ALL" == true || "$RUN_MCP" == true ]]    && source "$ARCHIVE_DIR/mcp/setup.sh"
 
 # =============================================================================
+# 5.5 Generate start-claude.sh if missing (update mode may skip output.sh)
+# =============================================================================
+if [[ ! -f ".claude/start-claude.sh" ]]; then
+  _PROJECT_NAME="$(basename "$(pwd)")"
+  cat > .claude/start-claude.sh << EOF
+#!/bin/bash
+cd "\$(dirname "\$0")/.."
+
+echo "=========================================="
+echo "  Starting Claude Code"
+echo "  Project: ${_PROJECT_NAME}"
+echo "  Working directory: \$(pwd)"
+echo "=========================================="
+echo ""
+echo "Conventions:"
+echo "  - Documents go in .claude/documents/ (gitignored)"
+echo "  - Present a Plan before making file changes"
+echo "  - Get explicit approval before committing"
+echo ""
+
+if [[ ! -f ".claude/TODO.md" ]]; then
+  cat > .claude/TODO.md << 'TODOEOF'
+# TODO
+
+## Pending
+
+## Done
+TODOEOF
+fi
+
+claude "Read .claude/TODO.md and remind me of all pending items before we start."
+
+if [ \$? -ne 0 ]; then
+  echo ""
+  echo "Error starting Claude Code. Press any key to close..."
+  read -n 1
+fi
+EOF
+  chmod +x .claude/start-claude.sh
+  echo "Generated   .claude/start-claude.sh"
+fi
+
+# =============================================================================
 # 6. Summary
 # =============================================================================
 echo ""
